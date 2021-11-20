@@ -246,7 +246,40 @@ examples in the training set. Show that A is an \textbf{ERM}.
 
 \begin{enumerate}
     \item We have a training set which is called $S$. We also consider Algorithm $A$ to return the smallest rectangle containing all the positives as the output. It is clear that $A$ is a member of $\mathcal{H}$. Because $\mathcal{H}$ is the set of all rectangles in the universe. Furthermore, considering the  realizability assumption, we have at least one member of $\mathcal{H}$ such that $ L_s (h) = 0 $ Given that the output of Algorithm $A$ contains all positive labels and is clearly due to being the tiniest one, it is not going to mislabel negative elements, so $ L_S (A) = 0 $, therefore, $A \in \arg \underset{h \in \mathcal{H}}{\min} L_s(h)$. So $A$ is an ERM.
-    \item Unfortunately, despite my efforts, I was not able to solve this exercise.
+    \item     First, we consider everything that was raised in the Hint section of the question as basic assumptions. From the definition of Algorithm $A$ , it can be easily concluded that $ R(s) \subseteq R^* $.
+    \begin{equation*}
+        L_{(\mathcal{D},f)}=\mathcal{D}(R^*-R(S))
+    \end{equation*}
+    Second, we fix some $\epsilon \in (0,1)$ and then consider $R_i$ as hint.\footnote{For each $i\in \{1,2,3,4\}$.} Then we define another family of sets $\mathcal{F}$.
+    \begin{equation*}
+        F_i=\{S|_x:S|_x \cap R_i = \varnothing \}
+    \end{equation*}
+    
+    Then we calculate the probability that $L_{(\mathcal{D},f)}$ being greater than $\epsilon$.
+    \begin{equation*}
+        \mathcal{D}^m \left ( \left \{  S:   L_{(\mathcal{D},f)}(R(s))>\epsilon \right \} \right ) \leq \mathcal{D}^m \left ( \bigcup_{i=1}^{4} F_i \right ) \leq \sum_{i=1}^{4} \mathcal{D}^m \left ( F_i \right )
+    \end{equation*}
+    
+
+    \begin{equation*}
+        \mathcal{D}^m(F_i)=(1-\frac{\epsilon}{4})^m \leq e^{-m*\frac{\epsilon}{4}}
+    \end{equation*}
+    Therefore,
+    \begin{equation*}
+        gin{equation*}
+        \mathcal{D}^m \left ( \left \{  S:   L_{(\mathcal{D},f)}(R(s))>\epsilon \right \} \right ) \leq 4.e^{-m.\frac{\epsilon}{4}}
+    \end{equation*}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     \item Formally, given real numbers $a_1 \leq b_1, \hspace{0.2 cm} a_2 \leq b_2 \hspace{0.2 cm} ... \hspace{0.2 cm} a_d \leq b_d $, define the classifier $h_{(a_1.b_1,...,a_d,b_d)}$ by
 
 \begin{equation*}
