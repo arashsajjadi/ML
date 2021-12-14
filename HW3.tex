@@ -1,0 +1,327 @@
+\documentclass[]{book}
+
+%These tell TeX which packages to use.
+\usepackage{array,epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsxtra}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{chngcntr}
+\usepackage{titlesec}
+\usepackage{dsfont}
+\usepackage{pifont}
+
+
+
+%Pagination stuff.
+\setlength{\topmargin}{-.3 in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.in}
+\setlength{\textwidth}{6.5in}
+\pagestyle{empty}
+
+
+
+
+\begin{document}
+
+\begin{center}
+{\Large Machine learning \hspace{0.5cm} HW 3}\\
+\textbf{\small{Understanding Machine Learning: From Theory to Algorithms}[Exercises for chapters 6 and 9]}\\
+\textbf{Mehrnaz jalili:400422061-
+Arash Sajjadi:400422096}\\ %You should put your name here
+\textit{Email: \href{mailto:Mehrnazjalili1991@gmail.com}{Mehrnazjalili1991@gmail.com}} 
+
+\textit{Email: \href{mailto:arash.sajjadi@yahoo.com}{arash.sajjadi@yahoo.com}} 
+
+
+Date: \today %You should write the date here.
+\end{center}
+
+\vspace{0.2 cm}
+
+\section*{chapter 6}
+\subsection*{Exercise 6.2:}
+
+The basic assumptions of the question: \hspace{1cm} $|\mathcal{X}|<	\infty$ \hspace{1cm} $k\leq |\mathcal{X}|$
+\begin{enumerate}
+    \item $\mathcal{H}^\mathcal{X}_{=k}=\left \{ h\in\left \{ 0,1 \right \}^\mathcal{X} :|  \left \{ x:h(x)=1 \right \} |=k \right \}$
+    
+    Let $C\subseteq \mathcal{X}  $ such that $|C|=k+1 \Rightarrow \nexists h\in \mathcal{H}_{=k}$ s.t $h_C(x)=1$ \hspace{1.34 cm} \ding{172}
+    
+    Let $C\subseteq \mathcal{X}  $ such that $|C|=|\mathcal{X}|-k+1 \Rightarrow \nexists h\in \mathcal{H}_{=k}$ s.t $h_C(x)=0$ \hspace{0.5 cm} \ding{173}
+    
+    From \ding{172} and also \ding{173} we have $\text{VCdim}(\mathcal{H}_{=k})\leq\min\left \{ k,|\mathcal{X}|-k \right \}$
+    
+    Now if we prove that $\text{VCdim}(\mathcal{H}_{=k})\geq\min\left \{ k,|\mathcal{X}|-k \right \}$, the desired result will be achieved. So we will continue the proof path to $\text{VCdim}(\mathcal{H}_{=k})\geq\min\left \{ k,|\mathcal{X}|-k \right \}$
+    
+    Let $C=\{x_1,...,x_m\}$ such that $m\leq min\left \{ k,|\mathcal{X}|-k \right \}$. 
+    Get the label $(y_1,...,y_m)\in \{0,1\}^m$ corresponds to $C$. also we donate $\sum y_i$ by $s$
+    Let $E$ be a set of $k-s$ arbitrary members of $\mathcal{X}-C$ so $E\subseteq\mathcal{X}-C$ \ding{174}
+    
+    suppose $h\in \mathcal{H}_{=k}$ be a  hypothesis which satisfies $\forall X_i \in C:h(x_i)=y_i$ and, by the same function, we assign one member of label $E$ to all members. Therefore, we were able to generate all possible functions on $C$ with this set of hypotheses. \ding{175}
+    
+    From \ding{174} and \ding{175} we conclude that $C$ is shattered by $mathcal{H}$ which means:
+    
+    $\text{VCdim}(\mathcal{H}_{=k})\geq\min\left \{ k,|\mathcal{X}|-k \right \}$ so $\text{VCdim}(\mathcal{H}_{=k})=\min\left \{ k,|\mathcal{X}|-k \right \}$ 
+    \item $\mathcal{H}_{at-most-k}=\left \{ h\in \left \{ 0,1 \right \}^\mathcal{X}: \left | \left \{ x:h(x)=1 \right \} \right |\leq k \,\,or\,\,\left | \left \{ x:h(x)=0 \right \} \right |\leq k \right \}$
+    
+    Let $C \subseteq \mathcal{X}$ such that $|C|=k+1 \Rightarrow \exists h\in \mathcal{H}$ s.t $h_C(x)=1 \Rightarrow \text{VCdim}(\mathcal{H}_{at-most-k})\leq k$ \hspace{1cm} \ding{172}
+    
+    Let $C \subseteq \mathcal{X}$ such that $|C|=m\leq k$,$C={x_1,...,x_2}$ With the same inference as the previous question we have $\text{VCdim}(\mathcal{H}_{at-most-k})\geq k$\hspace{1cm} \ding{173}
+    
+    From \ding{172} and \ding{173} we conclude that $\text{VCdim}(\mathcal{H}_{at-most-k})= k$
+    
+\end{enumerate}
+
+\subsection*{Exercise 6.6:(VC-dimension of Boolean conjunctions)}
+Problem assumptions: $\mathcal{H}^d_{con}$\hspace{1cm},\hspace{1cm}$x_1,...,x_d$\hspace{1cm},\hspace{1cm}$s\geq 2$
+
+\begin{enumerate}
+    \item There are three choice for each variable. ($x_i$,$\bar{x}_i$,None of them) \hspace{1cm}$\Rightarrow |\mathcal{H}^d_{con}|=3^d$
+    \item conclude that: $\text{VCdim}\left ( \mathcal{H}^d_{con} \right )\leq \left \lfloor \log\left ( \left |  \mathcal{H}^d_{con} \right | \right ) \right \rfloor\leq 3\log (d))$
+    \item We have to show that $ \mathcal{H}^d_{con}$ shatters the set of unit vectors $\{e_i,i\leq d\}$
+    \item show that $\text{VCdim}\left ( \mathcal{H}^d_{con} \right )\leq d$
+    \item $\mathcal{H}^d_{con}$ be monotone boolean conjunctions over $\{0,1\}^d$
+    
+    \ding{52}We examine answers 3, 4 and 5 together.
+    
+    If the variable appears with its negation, it is assigned to -1 and otherwise to 1. $x_1 \wedge \bar{x}_1 \mapsto -1$
+    
+    $e_i=[0,0,...,\underset{i^\text{th}}{\underbrace{1}},...,0,0]$ We make the matrix $X$ from the $e_i$ vectors.
+    
+    $X=\begin{bmatrix}
+1 & 0 & 0 & \cdots  &0 \\ 
+1 & 1 & 0 & \cdots & 0\\ 
+1 & 0 & 1 & \cdots & 0 \\ 
+ \vdots& \vdots & \vdots & \ddots  &\vdots \\ 
+ 1& 0 & 0 & \cdots & 1
+\end{bmatrix}_{(d+1)\times (d+1)}
+\hspace{1cm}
+Y=\begin{bmatrix}
+y_1\\ 
+y_2\\ 
+y_3\\ 
+\vdots\\ 
+y_{d+1}
+\end{bmatrix}=
+\begin{bmatrix}
+\pm 1\\ 
+\pm 1\\ 
+\pm 1\\ 
+\vdots\\ 
+\pm 1
+\end{bmatrix}$
+
+This matrix is invertible with Determinant $d+1$.Therefore,$Xw=Y\Rightarrow w=X^{-1}Y$ So $d+1$ points can be shattered as a result:
+$\text{VCdim}\geq d+1$ \ding{172}
+
+
+According to Radon's theorem, the $d+2$ points cannot be shattered. as a result:$\text{VCdim}\leq d+1$ \ding{173}
+
+From \ding{172} and \ding{173}, we can conclude that $\text{VCdim}= d+1$
+
+\end{enumerate}
+
+\subsection*{Exercise 6.9:}
+Let $\mathcal{H}$ be the class of signed intervals. $\mathcal{H}=\left \{ h_{a,b,c}:a\leq b,s \in\left \{ -1,1 \right \} \right \}$ when
+
+\begin{equation*}
+    h_{a,b,c}(x)=\left\{\begin{matrix}
+s&\text{if}\,\,\,x\in[a,b]\\ 
+-s&\text{if}\,\,\,x\notin[a,b]
+\end{matrix}\right.
+\end{equation*}
+We claim that $\text{VCdim}(\mathcal{H})=3$. At the beginning we have to show that $\text{VCdim}(\mathcal{H})\geq 3$ for this purpose let $C=\{x_1,x_2,x_3,x_4\}$ such that $x_i< x_i+1$. We can easily find out that the label $(-1,+1,-1,+1)$ is not obtained by hypothesis $\mathcal{H}$
+
+\subsection*{Exercise 6.10:}
+\begin{enumerate}
+    \item For every algorithm, there exists a distribution $\mathcal{D}$, for which  $\min_{h\in\mathcal{H}}L_{\mathcal{D}}(h)=0$, but;
+    
+    \begin{equation*}
+        \mathbb{E}[L_\mathcal{D}(A(S))]\geq \frac{k-1}{2k}
+    \end{equation*}
+    
+\begin{equation*}
+    k=\frac{d}{m}\Rightarrow \mathbb{E}[L_\mathcal{D}(A(S))]\geq \frac{d-m}{2d}
+\end{equation*}
+    \item If $\mathcal{H}$ is PAC learnable, then $\text{VCdim}(\mathcal{H})<\infty$ 
+    Suppose if $\text{VCdim}(\mathcal{H})=\infty$ then $\mathcal{H}$ is not PAC learnable.
+    
+    \begin{equation*}
+        L_{\mathcal{D}}(A(S))\leq \min L_{\mathcal{D}}(h)+\epsilon
+    \end{equation*}
+    
+    \textbf{Fundamental Theorems Of Machine Learning}: If $\mathcal{H}$ is Agnostic PAC learnable $\Rightarrow$ $\mathcal{H}$ is PAC learnable.  
+    
+    So, we can conclude that $\Rightarrow \mathbb{P}\left [ L_\mathcal D(A(S)) \geq \epsilon \right ]<\delta$
+    
+    
+    
+    
+\end{enumerate}
+
+
+\subsection*{Exercise 6.11:}
+
+$d=\max_i \text{VCdim}(\mathcal{H}_i)\geq 3$ and also $\mathcal{H}=\cup _{i=1}^r\mathcal{H}_i$ 
+
+\begin{enumerate}
+    \item we have to show that:
+
+\begin{equation*}
+    \text{VCdim}\left ( \cup _{i=1}^r\mathcal{H}_i \right )\leq 4d\log (2d)+2\log (r)
+\end{equation*}
+
+ According to definition, we have:
+ 
+ \begin{equation*}
+     \tau_\mathcal H(k)\leq \sum_{i=1}^r \tau_{\mathcal{H}_i} (k)\Rightarrow \tau_\mathcal H(k)\leq rm^d\Rightarrow 
+k\leq d\log (m) +\log (r)
+ \end{equation*}
+ 
+ Now, let $a\leq 0$ and $b>0$. Then, $x>4a\log(2a)+2b\Rightarrow x \leq a\log(x)+b$. Therfore,
+ 
+ \begin{equation*}
+     \Rightarrow k\leq 4d \log(2d)+2\log(r)
+ \end{equation*}
+ 
+ \item It is clear that $\text{VCdim}(\mathcal{H}_1)=\text{VCdim}(\mathcal{H}_2)=d$ also $\mathcal{H}=\mathcal{H}_1 \cup \mathcal{H_2}$ and $k\geq 2d+2$ we are trying to show that $\tau _\mathcal{H}(k)<2^k$.
+ 
+\begin{align*}
+\begin{matrix}
+\tau_\mathcal{H}(k)\leq &\tau_{\mathcal{H}_1}(k)+\tau_{\mathcal{H}_2}(k) \\ 
+ &\leq \sum_{i=0}^d\binom{k}{i}+\sum_{i=0}^d\binom{k}{i} \\ 
+ &=\sum_{i=0}^d\binom{k}{i}+\sum_{i=0}^d\binom{k}{k-i}  \\ 
+ &= \sum_{i=0}^d\binom{k}{i}+\sum_{i=k-d}^d\binom{k}{i} \\
+& \leq \sum_{i=0}^d\binom{k}{i}+\sum_{i=d+2}^d\binom{k}{i} \\
+& < \sum_{i=0}^d\binom{k}{i}+\sum_{i=d+1}^d\binom{k}{i}  & =\sum_{i=0}^k\binom{k}{i}=2^k
+\end{matrix}
+\end{align*}
+\end{enumerate}
+
+\section*{chapter 9}
+\subsection*{Exercise 9.1:}
+primary assumptions: $\ell|h(\textbf{x},y)=|h(\textbf{x})-y|$ and $|c|=\min_{a\geq 0}a \,\text{   s.t  }c\leq a \text{  and   }c\geq a$ 
+
+Frist we define a vector called $a$ as $a=(a_1,...,a_m)$ also, According to the \textit{Hint},  $\min_\text{w}\sum_{i=1}^{m}|\left \langle \text{w},\text{x}_i \right \rangle-y_i|$ is equal to output of ERM (minimum). Therfore,
+
+\begin{align*}
+       a_i\geq \left \langle \text{w},\text{x}_i \right \rangle-y_i\Rightarrow \left \langle \text{w},\text{x}_i \right \rangle-a_i\leq y_i \\
+          a_i\geq -\left \langle \text{w},\text{x}_i \right \rangle+y_i\Rightarrow -\left \langle \text{w},\text{x}_i \right \rangle-a_i\leq -y_i
+\end{align*}
+
+\begin{align*}
+\left \begin{matrix}
+A=\left [X-I_m;-X-I_m  \right ] & A\in \mathbb{R}^{2m\times(m+d)}\\ 
+\textbf{v}=(w_1,...,w_d,s_1,...,s_d) & \textbf{v}\in \mathbb{R}^{d+m}\\ 
+b=(y_1,...,y_m,-y_1,...,-y_m)^T & b \in \mathbb{R}^{2m}\\ 
+\textbf{c}=(\underset{d}{\underbrace{0,\dots,0}},\underset{m}{\underbrace{1,\dots,1}}) &\textbf{c} \in \mathbb{R}^{d+m}
+\end{matrix}
+\right \} \Rightarrow \min \textbf{c}^T\textbf{v} \text{  s.t  }A\textbf{v}\leq b
+\end{align*}
+
+\begin{equation*}
+    \textbf{c}^T\textbf{v}=\begin{bmatrix}
+0\\ 
+\vdots\\ 
+0\\ 
+1\\
+\vdots\\
+1
+
+\end{bmatrix}.\begin{bmatrix}
+w_1, &\dots  &,w_d,  &a_1,  &\dots  &,a_m 
+\end{bmatrix}=(a_1+\dots+a_m)=\sum_{i=1}^{m}a_i
+\end{equation*}
+
+\subsection*{Exercise 9.3:}
+
+Theorem:$\frac{\left \langle \textbf{w}^* , \textbf{w}^{(T+1)}\right \rangle}{\left \| \textbf{w}^* \right \|.\left \| \textbf{w}^{(T+1)} \right \|}\geq \frac{\sqrt T}{RB}$
+and also $T\leq (RB)^2$
+
+\begin{align*}
+    R=\max \left \| \textbf{x}_i \right \|\leq 1,\left \| \textbf{w}^* \right \|=m \text{  for all  }i\leq m \hspace{0.5cm}y_i\left \langle \textbf{w}^*,\textbf{x}_i \right \rangle \geq 1 \\
+\Rightarrow  B=\min \left \{ \left \| \textbf{w} \right \|:\forall i\in [m],y_i\left \langle \textbf{w},\textbf{x}_i\ \right \rangle \geq 1 \right \}\leq \sqrt m \Rightarrow (BR)^2\leq m
+\end{align*}
+ $\forall i\in [d]:\text{Sign}(0)=-1$ , $\text{Sign}(\left \langle \textbf{w},\textbf{x} \right \rangle)=y_i$
+ 
+ \begin{align*}
+     y=\begin{bmatrix}
+\pm1\\ 
+\vdots\\ 
+\pm1
+\end{bmatrix},
+y=\begin{bmatrix}
+1 & 0 & \dots & 0\\ 
+0 & 1 & \dots & 0\\ 
+\vdots & \vdots  & \ddots & \vdots\\ 
+0 & 0 & \dots & 1
+\end{bmatrix}
+, y=\sum_{j<i}e_j,\left \langle \textbf{w}^{(i)},\textbf{x}_i \right \rangle\Rightarrow \text{{So it shows the wrong label for everycase.}}
+ \end{align*}
+
+We engage a vector which is called $\textbf{w}^*$ equal to $\begin{bmatrix}
+1 & 0 &  0 & \dots & 0\\ 
+1 & 1 & 0 & \dots & 0\\ 
+1 & 0 & 1 & \dots & 0\\ 
+\vdots & \vdots  & \vdots & \ddots & \vdots\\ 
+1 & 0 & 0 & \dots & 1
+\end{bmatrix}$ with this problem to meet the requirements of the problem. Since it predicts labels correctly, so: $\textbf{x}\textbf{w}=y\Rightarrow\textbf{w}=\textbf{x}^{-1}y$. Therfore,
+
+\begin{equation*}
+    \textbf{x}\textbf{w}=y
+\end{equation*}
+
+\subsection*{Exercise 9.4:}
+Consider all positive examples of the form $(\alpha,\beta,1)$;\hspace{0.2cm}$\alpha^2+\beta^2+1\leq R^2$. 
+Furthermore, $y\left \langle \textbf{w}^*,\textbf{x} \right \rangle\geq 1$ (linearly separable)
+We show a sequence of $R^2$ examples on which the Perceptron makes $R^2$  mistakes.
+
+\begin{equation*}
+    (\alpha_1,0,1);\alpha_1=\sqrt{R^2-1}
+\end{equation*}
+
+Now, on round $t^th$ let the new example be such that the following conditions hold:
+
+\begin{equation*}
+    \left\{\begin{matrix}
+(a) & \alpha^2+\beta^2+1=R^2\\ 
+(b) & \left \langle \textbf{w}_t,(\alpha , \beta ,1) \right \rangle=0
+\end{matrix}\right.
+\end{equation*}
+ We show that if $t\leq R^2$  both conditions will be  satisfied:
+
+\begin{align*}
+    \textbf{w}^{(t-1)}=(a,b,t-1)\\
+\left \| \textbf{w}_{t-1} \right \|=(t-1)R^2\Rightarrow a^2+b^2+(t-1)^2=(t-1)R^2\\
+(a,0,t-1);a=\sqrt{(t-1)R^2-(t-1)^2} \\
+\text{Then for every $B$} \\
+\left \langle (a,0,t-1),(\alpha , \beta ,1) \right \rangle =0\\
+\alpha +1\leq R^2 \Rightarrow \beta=\sqrt{R^2-\alpha^2-1}\\
+\alpha^2+1=\frac{(t-1)^2}{\alpha^2}+1=\frac{(t-1)^2}{(t-1)R^2-(t-1)^2}+1=\\
+\frac{(t-1)R^2}{(t-1)R^2-(t-1)^2}=R^2.\frac{1}{R^2-(t-1)}\leq R^2
+\end{align*}
+
+where the last inequality assumes $R^2 \geq t$
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
